@@ -25,6 +25,8 @@ DallasTemperature sensors(&ds);
 void setup(){
     Serial.begin(9600);
     sensors.begin();
+    light_sensor.setFloor(10);
+    light_sensor.setCeiling(1000);
     digitalWrite(pinLed, LOW);
     dht.begin();
 }
@@ -32,7 +34,7 @@ void setup(){
 void loop() {
     temp1         = Ftemp ();
     (temp2, hum)  = FTH ();
-    luz           = light_sensor.getPercentValue();
+    luz           = FL ();
     readserial();
     cad = "#1:" + String(hum) + "#2:" + String(temp1) + "#3:" + String(luz) + "@";
     Serial.println(cad);
@@ -44,6 +46,12 @@ float FTH(){
   float h = dht.readHumidity();
   float t = dht.readTemperature();
   return t,h;
+}
+
+float FL(){
+  delay(250);
+  float l = light_sensor.getPercentValue();
+  return l;
 }
 
 float Ftemp(){

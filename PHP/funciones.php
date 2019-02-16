@@ -24,12 +24,12 @@
     function obtener_valores($id_sensor, $conexion){ 
 
         $arrayDatos = array();
-        $sql = "SELECT datetime, value FROM data Where idsensor = ". $id_sensor;
+        $sql = "SELECT time, data FROM datas Where id_sensor = ". $id_sensor;
 		$data = getArraySQL($conexion, $sql); 
 
 	    foreach($data as $row){
 
-            $dAux = array($row['datetime'], intval($row['value']));
+            $dAux = array($row['datetime'], intval($row['data']));
             array_push($arrayDatos, $dAux);
 
         }
